@@ -1,0 +1,209 @@
+{literal}
+
+
+<!--script type="text/javascript" src="./libs/js/multiple-file-upload/jquery.MultiFile.pack.js"></script-->
+<script type="text/javascript" src="./libs/js/tagsinput/jquery.tagsinput.js"></script>
+<link rel="stylesheet" type="text/css" href="./libs/js/tagsinput/jquery.tagsinput.css" />
+<script type="text/javascript" src="libs/js/ajax/servidor.js" charset="iso-8859-1"></script>
+
+
+<style>
+    .MultiFile-label {
+        background-color: #F5F5F5;
+        border: 2px solid #E5E5E5;
+        font: 11px Verdana, Geneva, sans-serif;
+        margin-top: 5px;
+        padding: 10px;
+    }
+
+    .ui-datepicker-trigger {
+        background: none repeat scroll 0 0 transparent;
+        border-style: none;
+        border-width: 5px 0 0;
+    }
+
+    .cke_skin_kama {
+        float: left;
+    }
+
+    .MultiFile-wrap {
+        clear: none !important;
+    }
+
+    .MultiFile-list {
+        width: 450px;
+        margin-left: 0px !important;
+    }
+
+    .tagsinput {
+        clear: none !important;
+    }
+</style>
+
+
+
+<!--script>
+$(function(){
+	$('#dsc_acompanhante_foto_chamada').MultiFile({
+            accept: 'jpg|gif|png',
+            max: 1,
+            STRING: {
+                selected: 'Selecionado: $file',
+                denied: 'Invalido arquivo de tipo $ext!',
+                duplicate: 'Arquivo já selecionado:\n$file!'
+            }
+        });
+ });
+</script-->
+{/literal}
+<table id="table_message" width="100%" class="login_box"  style="display:none;">	
+	<tr>
+		<td id="messageBoxAtribuicao">
+			
+		</td>
+	</tr>		
+</table>
+<br />
+<div id="message-red" {if !$smarty.request.msg}style="display:none;"{/if}>
+	<table border="0" width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="red-left">				 
+				<a href="#">{$smarty.request.msg}</a>
+			</td>
+			<td class="red-right">
+				<a class="close-red">
+					<img src="./imgs/table/icon_close_red.gif"   alt="" />
+				</a>
+			</td>	
+		</tr>
+	</table>
+</div>
+<div class="box_cabecalho">
+	Solicitar criação de servidor
+</div>
+
+<div class="box">
+			
+	<form id="formulario" name="formulario" action="?" method="POST" enctype="multipart/form-data">
+		{dynamic}
+		<input type="hidden" name="d" id="d" value="{$smarty.post.d}" /> 
+		<input type="hidden" name="a" id="a" value="{$smarty.post.a}" />
+		<input type="hidden" name="f" id="f" value="salvarSolicitacao" />
+		<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+		<input type="hidden" name="seq_solicitacao" id="seq_solicitacao" value="{$dados.seq_solicitacao}" />
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td align="center">					
+					<table  border='0'>
+							<tr>
+								<td align="right">
+									<label for="seq_sistema">Sistema operacional</label>
+								</td>
+								<td align="left">
+									<select id="seq_sistema" name="seq_sistema" class="required">
+										<option value="">--Selecione--</option>
+										{foreach from=$sistemaoperacional item=sistema}
+											<option value="{$sistema.seq_sistema}" {if $dados.seq_sistema==$sistema.seq_sistema}selected{/if}>{$sistema.dsc_sistema}</option>
+										{/foreach}
+									</select>&nbsp;(Obrigatório)
+								</td>
+							</tr>
+						
+							<tr>
+								<td align="right">
+									<label for="flg_solicitacao_servidor">Tipo de servidor</label>
+								</td>
+								<td align="left">
+									<select id="flg_solicitacao_servidor" name="flg_solicitacao_servidor" class="required">
+										<option value="">--Selecione--</option>
+										<option value="D" {if $dados.flg_solicitacao_servidor=="D"}selected{/if}>Desenvolvimento</option>
+										<option value="H" {if $dados.flg_solicitacao_servidor=="H"}selected{/if}>Homologação</option>
+										<option value="P" {if $dados.flg_solicitacao_servidor=="P"}selected{/if}>Produção</option>							
+									</select>&nbsp;(Obrigatório)
+								</td>
+							</tr>
+							
+							
+							<tr>
+								<td align="right">
+									<label for="flg_solicitacao_fisico">Tipo de servidor (Físico ou virtual)</label>
+								</td>
+								<td align="left">
+									<select id="flg_solicitacao_fisico" name="flg_solicitacao_fisico" class="required">
+										<option value="">--Selecione--</option>
+										<option value="F" {if $dados.flg_solicitacao_fisico=="F"}selected{/if}>Físico</option>
+										<option value="V" {if $dados.flg_solicitacao_fisico=="V"}selected{/if}>Virtual</option>														
+									</select>&nbsp;(Obrigatório)
+								</td>
+							</tr>				
+							
+							
+							<tr>
+								<td align="right">
+									<label for="num_solicitacao_memoria">Quantidade de memória</label>
+								</td>		 		
+								<td align="left">
+									<input type="text" alt="decimal" name="num_solicitacao_memoria" id="num_solicitacao_memoria" size="10" maxlength="8" value="{$dados.num_solicitacao_memoria}"  class="required" />
+									&nbsp;
+									<select id="tip_solicitacao_memoria" name="tip_solicitacao_memoria" class="required">
+										<option value="">--Selecione--</option>
+										<option value="MB" {if $dados.tip_solicitacao_memoria=="MB"}selected{/if}>MB</option>
+										<option value="GB" {if $dados.tip_solicitacao_memoria=="GB"}selected{/if}>GB</option>
+										<option value="TB" {if $dados.tip_solicitacao_memoria=="TB"}selected{/if}>TB</option>														
+									</select>&nbsp;(Obrigatório)
+								</td>
+							</tr>
+							
+			
+							<tr>
+								<td align="right">
+									<label for="num_solicitacao_nucleo">Quantidade de núcleos</label>
+								</td>		 		
+								<td align="left">
+									<input type="text" alt="inteiro" name="num_solicitacao_nucleo" id="num_solicitacao_nucleo" size="10" maxlength="8" value="{$dados.num_solicitacao_nucleo}"  class="required" />
+									&nbsp;(Obrigatório)
+								</td>
+							</tr>
+							
+							<tr>
+								<td align="right">
+									<label for="num_solicitacao_disco">Quantidade de espaço em disco</label>
+								</td>		 		
+								<td align="left">
+									<input type="text" alt="inteiro" name="num_solicitacao_disco" id="num_solicitacao_disco" size="10" maxlength="8" value="{$dados.num_solicitacao_disco}"  class="required" />
+									&nbsp;
+									<select id="tip_solicitacao_disco" name="tip_solicitacao_disco" class="required">
+										<option value="">--Selecione--</option>
+										<option value="MB" {if $dados.tip_solicitacao_disco=="MB"}selected{/if}>MB</option>
+										<option value="GB" {if $dados.tip_solicitacao_disco=="GB"}selected{/if}>GB</option>
+										<option value="TB" {if $dados.tip_solicitacao_disco=="TB"}selected{/if}>TB</option>														
+									</select>&nbsp;(Obrigatório)
+								</td>
+							</tr>
+					</table>		
+					<br>
+				</td>
+			</tr>	
+		</table>
+		<br/>
+		<table align="center">
+			<tr>
+				<td align="center" >
+					<button type="submit" name="btn_gravar" id="btn_gravar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão salvar rotina" alt="Clique no botão salvar rotina">
+						<span class="ui-button-text">Salvar</span>
+					</button>
+					
+					<button type="button" name="btn_add_novo" id="btn_add_novo" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para nova rotina" alt="Clique no botão para nova rotina">
+						<span class="ui-button-text">Novo</span>
+					</button>
+					<button type="button" name="btn_pesquisar" id="btn_pesquisar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para pesquisar rotina" alt="Clique no botão para pesquisar rotina">
+						<span class="ui-button-text">Pesquisar</span>
+					</button>																						
+	     	 	</td>						
+		    </tr>
+		</table>
+		<br>
+		{/dynamic}
+	</form>
+</div>			
+		

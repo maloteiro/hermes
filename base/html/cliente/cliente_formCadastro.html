@@ -1,0 +1,437 @@
+{literal}
+<script type="text/javascript" src="libs/js/ajax/cliente/cliente.js" charset="iso-8859-1"></script>
+<script type="text/javascript">			
+    $(document).ready(function() {
+    	CKEDITOR.instances.txt_cliente_observacoes.updateElement();
+        $("#formulario").validate();     
+        $( "#tabs" ).tabs();
+        
+        $('.dataTables').dataTable({
+            "bJQueryUI": true,
+            "aaSorting": [ [4,'desc'], [0,'desc'] ],
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sUrl": "./libs/js/datatables/language/ptBR.txt"
+            },
+            "bStateSave": true,
+            "aoColumnDefs": [{
+                    "bSortable": false,
+                    "aTargets": [-1]
+                }]
+        });
+      
+    });    
+</script>
+{/literal}
+
+
+<script type="text/javascript" src="./bibliotecas/ckeditor/ckeditor.js"></script>
+
+<table id="table_message" width="100%" class="login_box"  style="display:none;">	
+	<tr>
+		<td id="messageBoxAtribuicao">
+			
+		</td>
+	</tr>		
+</table>
+
+<div id="message-red" {if !$smarty.request.msg}style="display:none;"{/if}>
+	<br />
+	<table border="0" width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="red-left">				 
+				<a href="#">{$smarty.request.msg}</a>
+			</td>
+			<td class="red-right">
+				<a class="close-red">
+					<img src="./imgs/table/icon_close_red.gif"   alt="" />
+				</a>
+			</td>	
+		</tr>
+	</table>
+</div>
+<div class="box_cabecalho">
+	Cadastro de clientes
+</div>
+
+<div class="box">
+	{dynamic}			
+	<form id="formulario" name="formulario" action="?" method="POST" >
+		<input type="hidden" name="d" id="d" value="{$smarty.post.d}" /> 
+		<input type="hidden" name="a" id="a" value="{$smarty.post.a}" />
+		<input type="hidden" name="f" id="f" value="salvarCadastro" />
+		<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />		
+		<input type="hidden" name="update" id="update" value="{$update}" />
+		<input type="hidden" name="seq_cliente" id="seq_cliente" value="{$dados.seq_cliente}" />
+		<input type="hidden" name="tip_cliente_tipo" id="tip_cliente_tipo" value="{$smarty.session.tip_cliente_tipo}" />
+		<center>
+		<table  border='0'>			
+				{if $smarty.session.tip_cliente_tipo=="F"}
+				<tr >
+					<td colspan="2" align="left">
+						<label for="ind_estado_civil">Estado Civil</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<select id="ind_estado_civil" name="ind_estado_civil" class="required" required>
+							<option value="">--Selecione--</option>
+							{foreach from=$estadocivil item=civil}
+								<option value="{$civil.codigo}" {if $dados.ind_estado_civil==$civil.codigo}selected{/if}>{$civil.descricao}</option>
+							{/foreach}
+						</select>
+						<!--input type="text" name="ind_estado_civil" id="ind_estado_civil" size="100" value="{$dados.nom_cliente_nome}" maxlength='150' /-->
+					</td>
+				</tr>
+				{/if}
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="nom_cliente_nome">{if $smarty.session.tip_cliente_tipo=="F"}Nome{else}Razão Social{/if}</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="nom_cliente_nome_razao" id="nom_cliente_nome_razao" size="100" value="{$dados.nom_cliente_nome_razao}" maxlength='150' class="required" required/>
+					</td>
+				</tr>
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dsc_cliente_email">E-mail</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="email" name="dsc_cliente_email" id="dsc_cliente_email" size="100" value="{$dados.dsc_cliente_email}" maxlength='150' class="required email" required/>
+					</td>
+				</tr>				
+
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dsc_cliente_cpf_cnpj">{if $smarty.session.tip_cliente_tipo=="F"}CPF{else}CNPJ{/if}</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						{if $smarty.session.tip_cliente_tipo=="F"}
+						<input type="text" name="dsc_cliente_cpf_cnpj" id="dsc_cliente_cpf_cnpj" size="30" value="{$dados.dsc_cliente_cpf_cnpj}" maxlength='20' alt="CPF" class="required" required/>
+						{else}
+						<input type="text" name="dsc_cliente_cpf_cnpj" id="dsc_cliente_cpf_cnpj" size="30" value="{$dados.dsc_cliente_cpf_cnpj}" maxlength='20' alt="CNPJ" class="required" required/>
+						{/if}
+					</td>
+				</tr>				
+								
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dsc_cliente_rg_ie">{if $smarty.session.tip_cliente_tipo=="F"}RG{else}IE{/if}</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dsc_cliente_rg_ie" id="dsc_cliente_rg_ie" size="30" value="{$dados.dsc_cliente_rg_ie}" maxlength='20' class="required" required/>
+					</td>
+				</tr>
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dsc_cliente_expedidor">Expedidor</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dsc_cliente_expedidor" id="dsc_cliente_expedidor" size="30" value="{$dados.dsc_cliente_expedidor}" maxlength='20' class="required" required />
+					</td>
+				</tr>
+				
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="num_cliente_telefone">Telefone</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="num_cliente_telefone" id="num_cliente_telefone" size="30" value="{$dados.num_cliente_telefone}" maxlength='20' alt="telefone" class="required" required/>
+					</td>
+				</tr>
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="num_cliente_telefone2">Telefone 2</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="num_cliente_telefone2" id="num_cliente_telefone2" size="30" value="{$dados.num_cliente_telefone2}" maxlength='20' alt="telefone"/>
+					</td>
+				</tr>
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="mum_cliente_celular">Celular</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="mum_cliente_celular" id="mum_cliente_celular" size="30" value="{$dados.mum_cliente_celular}" maxlength='20' alt="telefone"/>
+					</td>
+				</tr>
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dsc_cliente_cep">CEP</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dsc_cliente_cep" id="dsc_cliente_cep" size="30" value="{$dados.dsc_cliente_cep}" maxlength='20' alt="CEP" class="required" required/>
+					</td>
+				</tr>
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dsc_cliente_logradouro">Logradouro</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dsc_cliente_logradouro" id="dsc_cliente_logradouro" size="100" value="{$dados.dsc_cliente_logradouro}" maxlength='255' class="required" required/>
+					</td>
+				</tr>
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dsc_cliente_bairro">Bairro</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dsc_cliente_bairro" id="dsc_cliente_bairro" size="100" value="{$dados.dsc_cliente_bairro}" maxlength='150' class="required" required/>
+					</td>
+				</tr>
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dsc_cliente_cidade">Cidade</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dsc_cliente_cidade" id="dsc_cliente_cidade" size="100" value="{$dados.dsc_cliente_cidade}" maxlength='150' class="required" required/>
+					</td>
+				</tr>
+				
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dat_cliente_nascimento">Data de Nascimento</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dat_cliente_nascimento" id="dat_cliente_nascimento" size="20" value="{if $dados.dat_cliente_nascimento!="0000-00-00"}{$dados.dat_cliente_nascimento|date_format:"%d/%m/%Y"}{/if}" maxlength='20' alt="dateBR" />
+					</td>
+				</tr>
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="txt_cliente_observacoes">Observações</label>
+					</td>
+		 		</tr>
+				<tr class="required">
+					<td>
+						<textarea id ="txt_cliente_observacoes" name="txt_cliente_observacoes">{$dados.txt_cliente_observacoes}</textarea>
+							<script type="text/javascript">
+                                CKEDITOR.replace('txt_cliente_observacoes', {
+                                    uiColor: '#DEDBDE',
+                                    toolbar: [['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'], ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'], ['Bold', 'Italic', 'Underline', 'Strike', '-', 'NumberedList', 'BulletedList', '-', 'Link'], ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']],
+                                    toolbarStartupExpanded: true,
+                                    height: 120,
+                                    width: 720,
+                                    resize_dir: 'vertical',
+                                    resize_maxHeight: 450,
+                                    resize_minHeight: 200,
+                                    resize_maxWidth: 450,
+                                    resize_minWidth: 450,
+                                    enterMode: CKEDITOR.ENTER_BR,
+            						shiftEnterMode: CKEDITOR.ENTER_BR
+                                });
+                            </script>
+					</td>
+				</tr>
+								
+				
+				<tr>
+					<td colspan="2" align="left">
+						<label for="flg_mapa_ativo">Ativo</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="checkbox" name="flg_cliente_ativo" id="flg_cliente_ativo" value="S" {if $dados.flg_cliente_ativo=="S"}checked{/if}/> Sim
+					</td>
+				</tr>
+		</table>		
+		<br>			
+		
+		</center>	
+		
+		<br/>
+		<table align="center">
+                    <tr>
+                        <td align="center" >
+                            <button type="submit" name="btn_gravar" id="btn_gravar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão salvar" alt="Clique no botão salvar">
+                                <span class="ui-button-text">Salvar</span>
+                            </button>
+					
+                            <button type="button" name="btn_add_novo" id="btn_add_novo" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para novo" alt="Clique no botão para novo">
+                                <span class="ui-button-text">Novo</span>
+                            </button>
+                            <button type="button" name="btn_pesquisar" id="btn_pesquisar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para pesquisar" alt="Clique no botão para pesquisar">
+                                <span class="ui-button-text">Pesquisar</span>
+                            </button>																		
+                        </td>						
+		    </tr>
+		</table>
+		<br />
+                {if $dados.seq_cliente}
+                <div id="tabs">
+                    <ul>                        
+                        <li><a href="#tabs-1">Entrevista</a></li>
+                        <li><a href="#tabs-2">Artefatos</a></li>
+                    </ul>
+                    <div id="tabs-1">
+                        
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+                            <tr>                                
+                                <td align="center"> 
+                                    <table align="center">
+                                        <tr>
+                                            <td align="center" >
+                                                <div class="buttons">
+                                                    <button name="btn_entrevista" type="button" onclick="wiOpen('?a=cliente&d=cliente&f=formCadastroEntrevista&seq_cliente={$dados.seq_cliente}');"><IMG SRC="./imgs/icones/add.png" BORDER="0" />Nova pergunta</button>
+                                                </div>                                                                        
+                                            </td>                            
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                       </table>                        
+                        
+                        <p>
+                        <table align="center" id="tb_rotina" class="display dataTables">
+                            <thead>
+                                <tr>            	
+                                    <th>
+                                        <b>Pergunta</b>
+                                    </th>                            	
+                                    <th>
+                                        <b>Resposta</b>
+                                    </th>
+                                    <th>
+                                        <b>Ativo</b>
+                                    </th>             
+                
+                                    <th width="1%">
+                                        <b>Ações</b>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {dynamic}
+                                {if $dados}
+                                {foreach from=$entrevistas item=entrevista}
+                                <tr id="{$entrevista.seq_entrevista}" class="processo">
+                                    <td>
+                                        <b>{$entrevista.dsc_entrevista_pergunta}</b>
+                                    </td>
+                                    <td>
+                                        <b>{$entrevista.dsc_entrevista_resposta}</b>
+                                    </td>
+                                    <td>
+                                        <b>{if $entrevista.flg_entrevista_ativa=="S"}SIM{else}NÃO{/if}</b>
+                                    </td>                         
+               
+                                    <td align="center">
+                                            <img src="./imgs/icones/page_white_edit.png" title="Editar" class="btn_editar tooltip" onclick="wiOpen('?a=cliente&d=cliente&f=formCadastroEntrevista&seq_entrevista={$entrevista.seq_entrevista}&seq_cliente={$smarty.request.seq_cliente}')"/>				
+                                    </td>
+                                </tr>{/foreach}
+                                {/if}
+                            {/dynamic}
+                            </tbody>
+                        </table>
+                        </p>
+                    </div>
+                    <div id="tabs-2">
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+                            <tr>                                
+                                <td align="center"> 
+                                    <table align="center">
+                                        <tr>
+                                            <td align="center" >
+                                                <div class="buttons">
+                                                    <button name="btn_artefato" type="button" onclick="wiOpen('?a=cliente&d=cliente&f=formCadastroArtefato&seq_cliente={$dados.seq_cliente}');"><IMG SRC="./imgs/icones/add.png" BORDER="0" />Novo artefato</button>
+                                                </div>                                                                        
+                                            </td>                            
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                       </table>
+                       <p>
+                        <table align="center" id="tb_artefato" class="display dataTables">
+                            <thead>
+                                <tr>            	
+                                    <th>
+                                        <b>Nome</b>
+                                    </th>                            	
+                                    <th>
+                                        <b>Tamanho</b>
+                                    </th>
+                                    <th>
+                                        <b>Ativo</b>
+                                    </th>             
+                
+                                    <th width="1%">
+                                        <b>Ações</b>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {dynamic}
+                                {if $dados}
+                                {foreach from=$artefatos item=artefato}
+                                <tr id="{$artefato.seq_artefato}" class="processo">
+                                    <td width="60%">
+                                        <b>{$artefato.dsc_artefato_nome}</b>
+                                    </td>
+                                    <td align="left" width="150px">
+                                        <b>{$artefato.num_artefato_tamanho}</b>
+                                    </td>
+                                    <td width="150px">
+                                        <b>{if $artefato.flg_artefato_ativo=="S"}SIM{else}NÃO{/if}</b>
+                                    </td>                         
+               
+                                    <td align="center" width="150px">
+                                            <img src="./imgs/icones/page_white_edit.png" title="Editar" class="btn_editar tooltip" onclick="wiOpen('?a=cliente&d=cliente&f=formCadastroArtefato&seq_artefato={$artefato.seq_artefato}&seq_cliente={$smarty.request.seq_cliente}&tip_cliente_tipo={$smarty.request.tip_cliente_tipo}')"/>
+                                            <img src="./imgs/icones/document_download.png" title="Donwload" class="btn_editar tooltip" onclick="window.open('download.php?arquivo={$artefato.dsc_artefato_nome}&tip_cliente_tipo={$smarty.request.tip_cliente_tipo}')"/> 
+                                            <img src="./imgs/icones/document_viewer.png" title="Visualizar" class="btn_editar tooltip" onclick="busca_conteudo({$artefato.seq_artefato});"/>                                           				
+                                    </td>
+                                </tr>{/foreach}
+                                {/if}
+                            {/dynamic}
+                            </tbody>
+                        </table>
+                        </p>
+                    </div>
+                </div>
+                {/if}
+                
+	</form>
+	<div id="dialog-message" title="Visualização">
+		<div id="conteudoArquivo">			
+		</div>
+	</div>
+	{/dynamic}
+</div>

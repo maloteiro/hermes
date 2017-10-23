@@ -1,0 +1,119 @@
+{literal}
+<script type="text/javascript" src="./libs/js/ajax/advogado/advogado.js" charset="iso-8859-1"></script>
+{/literal}
+<table id="table_message" width="100%" class="login_box"  style="display:none;">	
+	<tr>
+		<td id="messageBoxAtribuicao">
+			
+		</td>
+	</tr>		
+</table>
+<br />
+<div id="message-red" {if !$smarty.request.msg}style="display:none;"{/if}>
+	<table border="0" width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="red-left">				 
+				<a href="#">{$smarty.request.msg}</a>
+			</td>
+			<td class="red-right">
+				<a class="close-red">
+					<img src="./imgs/table/icon_close_red.gif"   alt="" />
+				</a>
+			</td>	
+		</tr>
+	</table>
+</div>
+<div class="box_cabecalho">
+	Cadastro de advogados
+</div>
+
+<div class="box">
+			
+	<form id="formulario" name="formulario" action="?" method="POST" enctype="multipart/form-data">
+		{dynamic}
+		<input type="hidden" name="d" id="d" value="{$smarty.post.d}" /> 
+		<input type="hidden" name="a" id="a" value="{$smarty.post.a}" />
+		<input type="hidden" name="f" id="f" value="salvarCadastro" />
+		<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />		
+		<input type="hidden" name="seq_advogado" id="seq_advogado" value="{$dados.seq_advogado}" />		
+		<center>
+		<table  border='0'>
+						
+				<tr>
+					<td colspan="2" align="left">
+						<label for="nom_advogado_nome">Nome</label>
+
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="nom_advogado_nome" id="nom_advogado_nome" size="45" value="{$dados.nom_advogado_nome}" class="required" maxlength='150' required/>&nbsp;(Obrigatório)
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td colspan="2" align="left">
+						<label for="dsc_advogado_email">E-mail</label>
+
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dsc_advogado_email" id="dsc_advogado_email" size="45" value="{$dados.dsc_advogado_email}" class="required email" maxlength='150' required/>&nbsp;(Obrigatório)
+					</td>
+				</tr>
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="num_advogado_oab">OAB</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="num_advogado_oab" id="num_advogado_oab" size="20" value="{$dados.num_advogado_oab}" maxlength='20' required/>&nbsp;(Obrigatório)
+					</td>
+				</tr>
+				
+				
+				
+				<tr>
+					<td colspan="2" align="left">
+						<label for="flg_advogado_ativo">Ativo</label>
+
+					</td>
+				</tr>
+				<tr>
+					<td align="left">
+						<input type="checkbox" name="flg_advogado_ativo" id="flg_advogado_ativo" value="S" {if $dados.flg_advogado_ativo=="S"}checked{/if}/> Sim
+					</td>
+				</tr>
+				
+				
+		</table>		
+		<br>			
+		
+		</center>	
+		
+		<br/>
+		<table align="center">
+			<tr>
+				<td align="center" >
+					<button type="submit" name="btn_gravar" id="btn_gravar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para salvar" alt="Clique no botão para salvar">
+						<span class="ui-button-text">Salvar</span>
+					</button>
+					
+					<button type="button" name="btn_add_novo" id="btn_add_novo" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para novo cadastro" alt="Clique no botão para novo cadastro">
+						<span class="ui-button-text">Novo</span>
+					</button>
+					<button type="button" name="btn_pesquisar" id="btn_pesquisar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para pesquisar" alt="Clique no botão para pesquisar">
+						<span class="ui-button-text">Pesquisar</span>
+					</button>																						
+	     	 	</td>						
+		    </tr>
+		</table>
+		<br>
+		{/dynamic}
+	</form>
+</div>			
+		

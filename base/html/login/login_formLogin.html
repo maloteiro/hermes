@@ -1,0 +1,40 @@
+<!-- /.login-logo -->
+  <div class="login-box-body">
+  	
+    <p class="login-box-msg">Faça login para acessar o sistema</p>
+
+    <form id="frmlogin" name="frmlogin" method="post" enctype="application/x-www-form-urlencoded">
+    	{dynamic}
+		<input type="hidden" name="d" id="d" value="login" />
+		<input type="hidden" name="a" id="a" value="login" />
+		<input type="hidden" name="f" id="f" value="validarAcesso" />						
+		<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+		{/dynamic}
+      <div class="form-group has-feedback">
+      	{dynamic}
+        <input type="email" class="form-control" placeholder="E-mail" name="usuario" id="usuario">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        {/dynamic}
+      </div>
+      <div class="form-group has-feedback">
+      	{dynamic}
+        <input type="password" class="form-control" placeholder="Senha" name="senha" id="senha">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        {/dynamic}
+      </div>
+      <div class="row">
+        <div class="col-xs-8">
+          <a href="#">Esqueceu a senha</a>
+        </div>
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Acessar</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
+
+   
+
+  </div>
+  <!-- /.login-box-body -->

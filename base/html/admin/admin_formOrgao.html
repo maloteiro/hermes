@@ -1,0 +1,131 @@
+<script type="text/javascript" src="libs/js/ajax/adminOrgao.js" charset="iso-8859-1"></script>
+
+<table id="table_message" width="100%" class="login_box"  style="display:none;">	
+	<tr>
+		<td id="messageBoxAtribuicao">
+			
+		</td>
+	</tr>		
+</table>
+<br />
+<div id="message-red" style="display:none;">
+	<table border="0" width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="red-left">				 
+				<a href="#"></a>
+			</td>
+			<td class="red-right">
+				<a class="close-red">
+					<img src="./imgs/table/icon_close_red.gif"   alt="" />
+				</a>
+			</td>	
+		</tr>
+	</table>
+</div>
+<div class="box_cabecalho">
+	Cadastro de Órgãos
+</div>
+
+<div class="box">
+	{dynamic}			
+	<form id="formulario" name="formulario" action="?" method="POST" >
+		<input type="hidden" name="d" id="d" value="{$smarty.post.d}" /> 
+		<input type="hidden" name="a" id="a" value="{$smarty.post.a}" />
+		<input type="hidden" name="f" id="f" value="salvarOrgao" />
+		<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />		
+		<input type="hidden" name="update" id="update" value="{$update}" />
+		<input type="hidden" name="seq_orgao" id="seq_orgao" value="{$dados.seq_orgao}" />
+		<center>
+		<table  border='0'>
+				<tr >
+					<td colspan="2" align="left">
+						<label for="tip_orgao_tipo">Tipo</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<select id="tip_orgao_tipo" name="tip_orgao_tipo">
+							<option value="">--Selecione--</option>
+							{foreach from=$tipoOrgao item=tipoOrg}
+								<option value="{$tipoOrg.codigo}" {if $dados.tip_orgao_tipo==$tipoOrg.codigo}selected{/if}>{$tipoOrg.descricao}</option>
+							{/foreach}
+						</select>
+					</td>
+				</tr>
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dsc_orgao">Nome</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dsc_orgao" id="dsc_orgao" size="50" value="{$dados.dsc_orgao}" maxlength='500' />
+					</td>
+				</tr>				
+				<tr>
+					<td colspan="2" align="left">
+						<label for="sig_orgao_sigla">Sigla</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="sig_orgao_sigla" id="sig_orgao_sigla" size="8" value="{$dados.sig_orgao_sigla}" maxlength='10' />
+					</td>
+				</tr>				
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="seq_perfil">Perfil padrão</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<select id="seq_perfil" name="seq_perfil">
+							<option value="">--Selecione--</option>
+							{foreach from=$perfis item=perfil}
+								<option value="{$perfil.seq_perfil}" {if $dados.seq_perfil==$perfil.seq_perfil}selected{/if}>{$perfil.dsc_perfil_nome}</option>
+							{/foreach}
+						</select>
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td colspan="2" align="left">
+						<label for="flg_orgao_status">Ativo</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="checkbox" name="flg_orgao_status" id="flg_orgao_status" value="1" {if $dados.flg_orgao_status=="1"}checked{/if}/> Sim
+					</td>
+				</tr>
+		</table>		
+		<br>			
+		
+		</center>	
+		
+		<br/>
+		<table align="center">
+			<tr>
+				<td align="center" >
+					<button type="submit" name="btn_gravar" id="btn_gravar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão salvar rotina" alt="Clique no botão salvar rotina">
+						<span class="ui-button-text">Salvar</span>
+					</button>
+					
+					<button type="button" name="btn_add_novo" id="btn_add_novo" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para nova rotina" alt="Clique no botão para nova rotina">
+						<span class="ui-button-text">Novo</span>
+					</button>
+					<button type="button" name="btn_pesquisar" id="btn_pesquisar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para pesquisar rotina" alt="Clique no botão para pesquisar rotina">
+						<span class="ui-button-text">Pesquisar</span>
+					</button>																		
+	     	 	</td>						
+		    </tr>
+		</table>
+		<br>
+	
+	
+	
+	</form>
+	{/dynamic}
+</div>

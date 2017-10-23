@@ -1,0 +1,141 @@
+<script type="text/javascript" src="libs/js/ajax/mapa/mapa.js" charset="iso-8859-1"></script>
+<script type="text/javascript" src="./bibliotecas/ckeditor/ckeditor.js"></script>
+
+<table id="table_message" width="100%" class="login_box"  style="display:none;">	
+	<tr>
+		<td id="messageBoxAtribuicao">
+			
+		</td>
+	</tr>		
+</table>
+<br />
+<div id="message-red" style="display:none;">
+	<table border="0" width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="red-left">				 
+				<a href="#"></a>
+			</td>
+			<td class="red-right">
+				<a class="close-red">
+					<img src="./imgs/table/icon_close_red.gif"   alt="" />
+				</a>
+			</td>	
+		</tr>
+	</table>
+</div>
+<div class="box_cabecalho">
+	Cadastro de coordenadas
+</div>
+
+<div class="box">
+	{dynamic}			
+	<form id="formulario" name="formulario" action="?" method="POST" >
+		<input type="hidden" name="d" id="d" value="{$smarty.post.d}" /> 
+		<input type="hidden" name="a" id="a" value="{$smarty.post.a}" />
+		<input type="hidden" name="f" id="f" value="salvarCadastro" />
+		<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />		
+		<input type="hidden" name="update" id="update" value="{$update}" />
+		<input type="hidden" name="seq_mapa" id="seq_mapa" value="{$dados.seq_mapa}" />
+		<center>
+		<table  border='0'>
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dsc_mapa_localidade">Localidade</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dsc_mapa_localidade" id="dsc_mapa_localidade" size="50" value="{$dados.dsc_mapa_localidade}" maxlength='150' />
+					</td>
+				</tr>
+				
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dsc_mapa_latitude">Latitude</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dsc_mapa_latitude" id="dsc_mapa_latitude" size="50" value="{$dados.dsc_mapa_latitude}" maxlength='50' />
+					</td>
+				</tr>
+				
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dsc_mapa_longitude">Longitude</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dsc_mapa_longitude" id="dsc_mapa_longitude" size="50" value="{$dados.dsc_mapa_longitude}" maxlength='50' />
+					</td>
+				</tr>
+				
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dsc_mapa_descricao">Descrição</label>
+					</td>
+		 		</tr>
+				<tr class="required">
+					<td>
+						<textarea id ="dsc_mapa_descricao" name="dsc_mapa_descricao" class="required">{$dados.dsc_mapa_descricao}</textarea>
+							<script type="text/javascript">
+                                CKEDITOR.replace('dsc_mapa_descricao', {
+                                    uiColor: '#DEDBDE',
+                                    toolbar: [['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'], ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'], ['Bold', 'Italic', 'Underline', 'Strike', '-', 'NumberedList', 'BulletedList', '-', 'Link'], ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']],
+                                    toolbarStartupExpanded: true,
+                                    height: 120,
+                                    width: 720,
+                                    resize_dir: 'vertical',
+                                    resize_maxHeight: 450,
+                                    resize_minHeight: 200,
+                                    resize_maxWidth: 450,
+                                    resize_minWidth: 450,
+                                    enterMode: CKEDITOR.ENTER_BR,
+            						shiftEnterMode: CKEDITOR.ENTER_BR
+                                });
+                            </script>
+					</td>
+				</tr>
+								
+				
+				<tr>
+					<td colspan="2" align="left">
+						<label for="flg_mapa_ativo">Ativo</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="checkbox" name="flg_mapa_ativo" id="flg_mapa_ativo" value="S" {if $dados.flg_mapa_ativo=="S"}checked{/if}/> Sim
+					</td>
+				</tr>
+		</table>		
+		<br>			
+		
+		</center>	
+		
+		<br/>
+		<table align="center">
+			<tr>
+				<td align="center" >
+					<button type="submit" name="btn_gravar" id="btn_gravar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão salvar" alt="Clique no botão salvar">
+						<span class="ui-button-text">Salvar</span>
+					</button>
+					
+					<button type="button" name="btn_add_novo" id="btn_add_novo" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para novo" alt="Clique no botão para novo">
+						<span class="ui-button-text">Novo</span>
+					</button>
+					<button type="button" name="btn_pesquisar" id="btn_pesquisar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para pesquisar" alt="Clique no botão para pesquisar">
+						<span class="ui-button-text">Pesquisar</span>
+					</button>																		
+	     	 	</td>						
+		    </tr>
+		</table>
+		<br>	
+	</form>
+	{/dynamic}
+</div>

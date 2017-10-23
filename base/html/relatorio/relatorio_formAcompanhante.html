@@ -1,0 +1,66 @@
+<div class="box_cabecalho">
+	Relatório de Acompanhantes
+</div>
+
+<div class="box">
+	
+	<form id="formulario" name="formulario" action="?" method="POST" enctype="multipart/form-data">
+		{dynamic}
+		<input type="hidden" name="d" id="d" value="{$smarty.post.d}" /> 
+		<input type="hidden" name="a" id="a" value="{$smarty.post.a}" />
+		<input type="hidden" name="f" id="f" value="{$smarty.post.f}" />
+		<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+		{/dynamic}
+		<center>	
+			<table  border='0'>
+				<tr>
+					<td align="right">
+						<label for="seq_acompanhante">Acompanhante</label>
+					</td>
+					<td align="left">
+						{dynamic}
+						<select id="seq_acompanhante" name="seq_acompanhante" class="required">
+							<option value="">--Selecione--</option>
+							{foreach from=$acompanhantes item=acompanhante}
+								<option value="{$acompanhante.seq_acompanhante}" {if $acompanhante.seq_acompanhante==$smarty.request.seq_acompanhante}selected{/if}>{$acompanhante.dsc_acompanhante_nome_artistico}</option>
+							{/foreach}																				
+						</select>&nbsp;(Obrigatório)
+						{/dynamic}
+					</td>
+				</tr>
+			</table>
+		</center>
+		{dynamic}
+		{if $estatistica}
+		<br />
+		<table width="100%">
+			<tr>
+				<th style="border:1px solid #B3B3B3;background-color: #F4F6F5;">Data</th>
+				<th style="border:1px solid #B3B3B3;background-color: #F4F6F5;">Quantidade de acessos</th>
+				<th style="border:1px solid #B3B3B3;background-color: #F4F6F5;">Total de acessos desde o cadastro</th>
+			</tr>
+			{foreach from=$estatistica item=estat}
+			<tr>
+				<td style="border:1px solid #B3B3B3;text-align:center;">{$estat.dat_estatistica_data|date_format:"%d/%m/%Y"}</td>
+				<td style="border:1px solid #B3B3B3;text-align:center;">{$estat.num_estatistica_acesso}</td>
+				<td style="border:1px solid #B3B3B3;text-align:center;">{$estat.total}</td>
+			</tr>
+			{/foreach}
+		</table>
+		{/if}
+		{/dynamic}
+		<br />
+		<table align="center">
+			<tr>
+				<td align="center" >
+					<button type="submit" name="btn_visualizar" id="btn_visualizar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão salvar rotina" alt="Clique no botão salvar rotina">
+						<span class="ui-button-text">Visualizar</span>
+					</button>
+					<button type="button" name="btn_voltar" id="btn_voltar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão salvar rotina" alt="Clique no botão salvar rotina" onclick="wiOpen('?a=relatorio&d=relatorio&f=formTotais')">
+						<span class="ui-button-text">Voltar</span>
+					</button>																						
+	     	 	</td>						
+		    </tr>
+		</table>
+	</form>
+</div>

@@ -1,0 +1,127 @@
+{literal}
+<!--script>
+    $(document).ready(function(){        
+        $('.dataTables').dataTable({
+            "bJQueryUI": true,
+            "aaSorting": [ [4,'desc'], [0,'desc'] ],
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sUrl": "./libs/js/datatables/language/ptBR.txt"
+            },
+            "bStateSave": true,
+            "aoColumnDefs": [{
+                    "bSortable": false,
+                    "aTargets": [-1]
+                }]
+        });
+    });
+</script-->
+{/literal}
+
+
+
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Cadastro de funcionalidades
+        <small>{$smarty.session.versao}</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Segurança</a></li>
+        <li class="active">Funcionalidades</li>
+      </ol>
+    </section>
+    
+    <!-- Main content -->
+    <section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<i class="fa fa-search"></i>
+              			<h3 class="box-title">Pesquisa</h3>
+              			<div style="float: right;">
+							<div class="form-group">
+								<button type="button" name="btn_voltar" id="btn_voltar" class="btn btn-block btn-primary" type="button"><i class="fa fa-undo" aria-hidden="true"></i> Voltar</button>
+										
+							</div>
+							
+							<!--button type="submit" name="btn_voltar" id="btn_voltar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para voltar" alt="Clique no botão para voltar" >
+								<span class="ui-button-text">Voltar</span>
+							</button-->
+				 		</div>
+            		</div>
+            		<!-- /.box-header -->
+            		<div class="box-body">
+						
+						<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+						{dynamic}
+			    		<table align="center" id="tabela" class="table table-bordered table-striped dataTables"> 
+        <thead>
+            <tr>
+            	<th>
+                    <b>Módulo</b>
+                </th>
+                <th>
+                    <b>Descrição</b>
+                </th>                            	
+                <th>
+                    <b>Arquivo</b>
+                </th>
+                <th>
+                    <b>Diretório</b>
+                </th>                
+                <th>
+                    <b>Função</b>
+                </th>
+                <th>
+                    <b>Ativa</b>
+                </th>
+                <th width="1%">
+                    <b>Ações</b>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {if $rotinas}
+            {foreach from=$rotinas item=rotina}
+            <tr id="{$processo.seq_rotina}" class="processo">
+            	<td>
+                    <b>{$rotina.dsc_modulo_descricao}</b>
+                </td>
+                <td>
+                    <b>{$rotina.dsc_rotina_descricao}</b>
+                </td>
+                <td align="left">
+                    <b>{$rotina.dsc_rotina_arquivo}</b>
+                </td>
+                <td align="left">
+                    <b>{$rotina.dsc_rotina_diretorio}</b>
+                </td>                
+                <td align="left">
+                    <b>{$rotina.dsc_rotina_funcao}</b>
+                </td>
+                <td align="left">
+                    <b>{if $rotina.flg_rotina_ativa=="S"}SIM{else}NÃO{/if}</b>
+                </td>
+                <td align="center">
+                	<button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-container="body" title="Editar" onclick="wiOpen('?a=admin&d=admin&f=formRotina&seq_rotina={$rotina.seq_rotina}')">
+    					<i class="fa fa-edit"></i>
+    				</button>
+                					
+                </td>
+            </tr>{/foreach}
+            {/if}
+        </tbody>
+    </table>
+				{/dynamic}
+				</div>
+			</div>
+		</div>
+	</div>
+	</section>
+</div>	
+<script type="text/javascript" src="./public/ajax/adminRotina.js" charset="iso-8859-1"></script>

@@ -1,0 +1,15 @@
+<div class="box_cabecalho">
+	Relatório de Acompanhantes
+</div>
+<div class="box">	<form id="formulario" name="formulario" action="?" method="POST" enctype="multipart/form-data">		{dynamic}		<input type="hidden" name="d" id="d" value="{$smarty.post.d}" /> 		<input type="hidden" name="a" id="a" value="{$smarty.post.a}" />		<input type="hidden" name="f" id="f" value="{$smarty.post.f}" />		<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />		{if $estatistica}
+		<center>			
+			<table align="center">
+				<tr>
+					<td align="center" >						
+						<button type="button" name="btn_recarregar" id="btn_recarregar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão salvar rotina" alt="Clique no botão salvar rotina" onclick="wiOpen('?a=relatorio&d=relatorio&f=formTotais')">
+							<span class="ui-button-text">Recarregar</span>
+						</button>																						
+		     	 	</td>						
+			    </tr>
+			</table>
+		</center>		<br />		<table width="100%">			<tr>				<th style="border:1px solid #B3B3B3;background-color: #F4F6F5;text-align:left;">Nome</th>								<th style="border:1px solid #B3B3B3;background-color: #F4F6F5;">Total de acessos desde o cadastro</th>				<th style="border:1px solid #B3B3B3;background-color: #F4F6F5;">Cadastrada em</th>			</tr>			{foreach from=$estatistica item=estat}			<tr>				<td style="border:1px solid #B3B3B3;text-align:left;"><a href="#" onclick="javascript:wiOpen('?a=relatorio&d=relatorio&f=formAcompanhante&seq_acompanhante={$estat.seq_acompanhante}');">{$estat.dsc_acompanhante_nome_artistico}</a></td>				<td style="border:1px solid #B3B3B3;text-align:center;">{$estat.total}</td>				<td style="border:1px solid #B3B3B3;text-align:center;">{$estat.dat_data_cadastro|date_format:"%d/%m/%Y"}</td>			</tr>			{/foreach}		</table>		{/if}		{/dynamic}	</form></div>

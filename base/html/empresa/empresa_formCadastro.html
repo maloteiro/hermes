@@ -1,0 +1,230 @@
+{literal}
+
+
+<script type="text/javascript" src="./libs/js/multiple-file-upload/jquery.MultiFile.pack.js"></script>
+<script type="text/javascript" src="./libs/js/tagsinput/jquery.tagsinput.js"></script>
+<link rel="stylesheet" type="text/css" href="./libs/js/tagsinput/jquery.tagsinput.css" />
+<script type="text/javascript" src="libs/js/ajax/empresa.js" charset="iso-8859-1"></script>
+
+
+<style>
+    .MultiFile-label {
+        background-color: #F5F5F5;
+        border: 2px solid #E5E5E5;
+        font: 11px Verdana, Geneva, sans-serif;
+        margin-top: 5px;
+        padding: 10px;
+    }
+
+    .ui-datepicker-trigger {
+        background: none repeat scroll 0 0 transparent;
+        border-style: none;
+        border-width: 5px 0 0;
+    }
+
+    .cke_skin_kama {
+        float: left;
+    }
+
+    .MultiFile-wrap {
+        clear: none !important;
+    }
+
+    .MultiFile-list {
+        width: 450px;
+        margin-left: 0px !important;
+    }
+
+    .tagsinput {
+        clear: none !important;
+    }
+</style>
+
+
+
+<script>
+$(function(){
+	$('#dsc_acompanhante_foto_chamada').MultiFile({
+            accept: 'jpg|gif|png',
+            max: 1,
+            STRING: {
+                selected: 'Selecionado: $file',
+                denied: 'Invalido arquivo de tipo $ext!',
+                duplicate: 'Arquivo já selecionado:\n$file!'
+            }
+        });
+ });
+</script>
+{/literal}
+<table id="table_message" width="100%" class="login_box"  style="display:none;">	
+	<tr>
+		<td id="messageBoxAtribuicao">
+			
+		</td>
+	</tr>		
+</table>
+<br />
+<div id="message-red" {if !$smarty.request.msg}style="display:none;"{/if}>
+	<table border="0" width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="red-left">				 
+				<a href="#">{$smarty.request.msg}</a>
+			</td>
+			<td class="red-right">
+				<a class="close-red">
+					<img src="./imgs/table/icon_close_red.gif"   alt="" />
+				</a>
+			</td>	
+		</tr>
+	</table>
+</div>
+<div class="box_cabecalho">
+	Cadastro de Empresas
+</div>
+
+<div class="box">
+			
+	<form id="formulario" name="formulario" action="?" method="POST" enctype="multipart/form-data">
+		{dynamic}
+		<input type="hidden" name="d" id="d" value="{$smarty.post.d}" /> 
+		<input type="hidden" name="a" id="a" value="{$smarty.post.a}" />
+		<input type="hidden" name="f" id="f" value="salvarEmpresa" />
+		<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+		<input type="hidden" name="seq_empresa" id="seq_empresa" value="{$dados.seq_empresa}" />		
+		<center>
+		<table  border='0'>
+				<tr>
+					<td align="right">
+						<label for="dsc_empresa_cnpj">CNPJ</label>
+					</td>
+					<td align="left">
+						<input type="text" alt="CNPJ" name="dsc_empresa_cnpj" id="dsc_empresa_cnpj" size="18" maxlength="18" value="{$dados.dsc_empresa_cnpj}" />&nbsp;(Opcional)
+					</td>
+				</tr>
+			
+				<tr>
+					<td align="right">
+						<label for="dsc_empresa_razao">Razão social</label>
+
+					</td>
+					<td align="left">
+						<input type="text" name="dsc_empresa_razao" id="dsc_empresa_razao" size="45" value="{$dados.dsc_empresa_razao}" maxlength='250' />&nbsp;(Opcional)
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td align="right">
+						<label for="dsc_empresa_fantasia">Nome fantasia</label>
+
+					</td>
+					<td align="left">
+						<input type="text" name="dsc_empresa_fantasia" id="dsc_empresa_fantasia" size="45" value="{$dados.dsc_empresa_fantasia}" maxlength='250' class="required" />&nbsp;(Obrigatório)
+					</td>
+				</tr>
+				
+				
+				
+				<tr>
+					<td align="right">
+						<label for="dsc_empresa_telefone">Telefone</label>
+					</td>		 		
+					<td align="left">
+						<input type="text" alt="telefone" name="dsc_empresa_telefone" id="dsc_empresa_telefone" size="25" maxlength="14" value="{$dados.dsc_empresa_telefone}"  class="required" />&nbsp;(Obrigatório)
+					</td>
+				</tr>
+				
+
+				<tr>
+					<td align="right">
+						<label for="dsc_empresa_endereco">Endereço</label>
+					</td>
+					<td align="left">
+						<input type="text" name="dsc_empresa_endereco" id="dsc_empresa_endereco" size="45" value="{$dados.dsc_empresa_endereco}" maxlength='500' />&nbsp;(Opcional)
+					</td>
+				</tr>
+				
+				<tr>
+					<td align="right">
+						<label for="dsc_empresa_bairro">Bairro</label>
+
+					</td>
+					<td align="left">
+						<input type="text" name="dsc_empresa_bairro" id="dsc_empresa_bairro" size="45" value="{$dados.dsc_empresa_bairro}" maxlength='250' />&nbsp;(Opcional)
+					</td>
+				</tr>
+				
+				<tr>
+					<td align="right">
+						<label for="dsc_empresa_cidade">Cidade</label>
+
+					</td>
+					<td align="left">
+						<input type="text" name="dsc_empresa_cidade" id="dsc_empresa_cidade" size="45" value="{$dados.dsc_empresa_cidade}" maxlength='250' />&nbsp;(Opcional)
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td align="right">
+						<label for="dsc_empresa_uf">UF</label>
+					</td>
+					<td align="left">
+						<input type="text" name="dsc_empresa_uf" id="dsc_empresa_uf" size="4" maxlength="2" value="{$dados.dsc_empresa_uf}"/>&nbsp;(Opcional)
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td align="right">
+						<label for="dsc_empresa_cep">CEP</label>
+					</td>		 		
+					<td align="left">
+						<input type="text" alt="CEP" name="dsc_empresa_cep" id="dsc_empresa_cep" size="10" maxlength="14" value="{$dados.dsc_empresa_cep}"  />&nbsp;(Opcional)
+					</td>
+				</tr>
+				
+				
+				
+				
+				<tr>
+					<td align="right">
+						<label for="flg_empresa_ativa">Ativa</label>
+					</td>
+					<td align="left">
+						<input type="checkbox" name="flg_empresa_ativa" id="flg_empresa_ativa" value="1" {if $dados.flg_empresa_ativa=="1"}checked{/if}/> Sim
+					</td>
+				</tr>
+				
+				
+				
+				
+							
+										
+		</table>		
+		<br>			
+		
+		</center>	
+		
+		<br/>
+		<table align="center">
+			<tr>
+				<td align="center" >
+					<button type="submit" name="btn_gravar" id="btn_gravar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão salvar rotina" alt="Clique no botão salvar rotina">
+						<span class="ui-button-text">Salvar</span>
+					</button>
+					
+					<button type="button" name="btn_add_novo" id="btn_add_novo" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para nova rotina" alt="Clique no botão para nova rotina">
+						<span class="ui-button-text">Novo</span>
+					</button>
+					<button type="button" name="btn_pesquisar" id="btn_pesquisar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para pesquisar rotina" alt="Clique no botão para pesquisar rotina">
+						<span class="ui-button-text">Pesquisar</span>
+					</button>																						
+	     	 	</td>						
+		    </tr>
+		</table>
+		<br>
+		{/dynamic}
+	</form>
+</div>			
+		

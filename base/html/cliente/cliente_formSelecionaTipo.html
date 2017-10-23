@@ -1,0 +1,45 @@
+<div class="box_cabecalho">
+	Cadastro de clientes
+</div>
+
+<div class="box">
+	{dynamic}			
+	<form id="formulario" name="formulario" action="?" method="POST" >
+		<input type="hidden" name="d" id="d" value="{$smarty.post.d}" /> 
+		<input type="hidden" name="a" id="a" value="{$smarty.post.a}" />
+		<input type="hidden" name="f" id="f" value="salvarCadastro" />
+		<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />		
+		<input type="hidden" name="update" id="update" value="{$update}" />
+		<input type="hidden" name="seq_cliente" id="seq_cliente" value="{$dados.seq_cliente}" />
+		<center>
+			<br />
+			<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+                <tr>                                
+                    <td align="center"> 
+                        <table align="center">
+                            <tr>
+                                <td align="center" >
+                                    <div class="buttons">
+                                        <button name="btn_pessoa_fisica" type="button" onclick="wiOpen('?a=cliente&d=cliente&f=formCadastro&seq_cliente={$dados.seq_cliente}&tip_cliente_tipo=F');"><IMG SRC="./imgs/icones/user.png" BORDER="0" />Pessoa Física</button>
+                                    </div>                                                                        
+                                </td> 
+                                <td align="center" >
+                                    <div class="buttons">
+                                        <button name="btn_pessoa_juridica" type="button" onclick="wiOpen('?a=cliente&d=cliente&f=formCadastro&seq_cliente={$dados.seq_cliente}&tip_cliente_tipo=J');"><IMG SRC="./imgs/icones/application_home.png" BORDER="0" />Pessoa Jurídica</button>
+                                    </div>                                                                        
+                                </td> 
+                                <td align="center" >
+                                    <div class="buttons">
+                                        <button name="btn_pesquisar" type="button" onclick="wiOpen('?a=cliente&d=cliente&f=formConsulta');"><IMG SRC="./imgs/icones/find.png" BORDER="0" />Pesquisar</button>
+                                    </div>                                                                        
+                                </td>                          
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+           </table>
+           <br />
+		</center>
+	</form>
+	{/dynamic}
+</div>

@@ -1,0 +1,75 @@
+{literal}
+<script>
+    $(document).ready(function(){        
+        $('.dataTables').dataTable({
+            "bJQueryUI": true,
+            "aaSorting": [ [4,'desc'], [0,'desc'] ],
+            "sPaginationType": "full_numbers",
+            "oLanguage": {
+                "sUrl": "./libs/js/datatables/language/ptBR.txt"
+            },
+            "bStateSave": true,
+            "aoColumnDefs": [{
+                    "bSortable": false,
+                    "aTargets": [-1]
+                }]
+        });
+    });
+</script>
+{/literal}
+<div class="box_cabecalho">
+    Consultar Orgãos 
+    <div style="float: right;">
+    	<button type="submit" name="btn_voltar" id="btn_voltar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para voltar" alt="Clique no botão para voltar" onclick="wiOpen('?a=admin&d=admin&f=formOrgao');">
+			<span class="ui-button-text">Voltar</span>
+		</button>	
+    </div>    
+</div>
+<div class="box">
+	<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+{dynamic}
+    <table align="center" id="tb_rotina" class="display dataTables">
+        <thead>
+            <tr>            	
+                <th>
+                    <b>Descrição</b>
+                </th>                            	
+                <th>
+                    <b>Sigla</b>
+                </th>
+                <th>
+                    <b>Tipo</b>
+                </th>                
+                <th>
+                    <b>Ativo</b>
+                </th>
+                <th width="1%">
+                    <b>Ações</b>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {if $dados}
+            {foreach from=$dados item=dado}
+            <tr id="{$dado.seq_orgao}" class="processo">
+            	<td>
+                    <b>{$dado.dsc_orgao}</b>
+                </td>
+                <td>
+                    <b>{$dado.sig_orgao_sigla}</b>
+                </td> 
+                <td>
+                    <b>{$dado.descricao}</b>
+                </td>               
+                <td align="left">
+                    <b>{if $dado.flg_orgao_status=="1"}SIM{else}NÃO{/if}</b>
+                </td>
+                <td align="center">
+                	<img src="./imgs/icones/page_white_edit.png" title="Editar" class="btn_editar tooltip" onclick="wiOpen('?a=admin&d=admin&f=formOrgao&seq_orgao={$dado.seq_orgao}')"/>				
+                </td>
+            </tr>{/foreach}
+            {/if}
+        </tbody>
+    </table>
+{/dynamic}
+</div>

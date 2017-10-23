@@ -1,0 +1,203 @@
+{literal}
+<!--script type="text/javascript" src="./libs/js/multiple-file-upload/jquery.MultiFile.pack.js"></script-->
+<script type="text/javascript" src="./libs/php/tags/src/jquery.tagsinput.js"></script>
+<link rel="stylesheet" type="text/css" href="./libs/php/tags/src/jquery.tagsinput.css" />
+<script type="text/javascript" src="./libs/js/ajax/processo/processo.js" charset="iso-8859-1"></script>
+
+
+<style>
+    .MultiFile-label {
+        background-color: #F5F5F5;
+        border: 2px solid #E5E5E5;
+        font: 11px Verdana, Geneva, sans-serif;
+        margin-top: 5px;
+        padding: 10px;
+    }
+
+    .ui-datepicker-trigger {
+        background: none repeat scroll 0 0 transparent;
+        border-style: none;
+        border-width: 5px 0 0;
+    }
+
+    .cke_skin_kama {
+        float: left;
+    }
+
+    .MultiFile-wrap {
+        clear: none !important;
+    }
+
+    .MultiFile-list {
+        width: 450px;
+        margin-left: 0px !important;
+    }
+
+    .tagsinput {
+        clear: none !important;
+    }
+</style>
+
+
+
+<script>
+$(function(){
+	$('#nom_cliente_nome_razao').tagsInput({
+		width: '500px',
+		autocomplete_url:'index.php?a=processo&d=processo&f=ajaxCliente'
+	});
+ });
+</script>
+
+{/literal}
+<table id="table_message" width="100%" class="login_box"  style="display:none;">	
+	<tr>
+		<td id="messageBoxAtribuicao">
+			
+		</td>
+	</tr>		
+</table>
+<br />
+<div id="message-red" {if !$smarty.request.msg}style="display:none;"{/if}>
+	<table border="0" width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="red-left">				 
+				<a href="#">{$smarty.request.msg}</a>
+			</td>
+			<td class="red-right">
+				<a class="close-red">
+					<img src="./imgs/table/icon_close_red.gif"   alt="" />
+				</a>
+			</td>	
+		</tr>
+	</table>
+</div>
+<div class="box_cabecalho">
+	Cadastro de processos
+</div>
+
+<div class="box">
+			
+	<form id="formulario" name="formulario" action="?" method="POST" enctype="multipart/form-data">
+		{dynamic}
+		<input type="hidden" name="d" id="d" value="{$smarty.post.d}" /> 
+		<input type="hidden" name="a" id="a" value="{$smarty.post.a}" />
+		<input type="hidden" name="f" id="f" value="salvarCadastro" />
+		<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />		
+		<input type="hidden" name="seq_processo" id="seq_processo" value="{$dados.seq_processo}" />		
+		<center>
+		<table  border='0'>
+						
+				<tr>
+					<td colspan="2" align="left">
+						<label for="num_processo_numero">Número Processo</label>
+
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="num_processo_numero" id="num_processo_numero" size="30" value="{$dados.num_processo_numero}" class="required" maxlength='25' alt="numeroProcesso" required/>&nbsp;(Obrigatório)
+					</td>
+				</tr>
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dat_processo_distribuicao">Data da Distribuição</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dat_processo_distribuicao" id="dat_processo_distribuicao" size="20" value="{if $dados.dat_processo_distribuicao!="0000-00-00"}{$dados.dat_processo_distribuicao|date_format:"%d/%m/%Y"}{/if}" maxlength='20' alt="dateBR" required/>&nbsp;(Obrigatório)
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td colspan="2" align="left">
+						<label for="dsc_processo_orgao_julgador">Órgão Julgador</label>
+
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dsc_processo_orgao_julgador" id="dsc_processo_orgao_julgador" size="45" value="{$dados.dsc_processo_orgao_julgador}" maxlength='150' class="required" required/>&nbsp;(Obrigatório)
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="2" align="left">
+						<label for="dsc_processo_classe">Classe Judicial</label>
+
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dsc_processo_classe" id="dsc_processo_classe" size="45" value="{$dados.dsc_processo_classe}" maxlength='255' class="required" required/>&nbsp;(Obrigatório)
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<td colspan="2" align="left">
+						<label for="dsc_processo_assunto">Assunto</label>
+
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="text" name="dsc_processo_assunto" id="dsc_processo_assunto" size="45" value="{$dados.dsc_processo_assunto}" maxlength='500' class="required" required/>&nbsp;(Obrigatório)
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="2" align="left">
+						<label for="flg_processo_encerrado">Encerrado</label>
+
+					</td>
+				</tr>
+				<tr>
+					<td align="left">
+						<input type="checkbox" name="flg_processo_encerrado" id="flg_processo_encerrado" value="S" {if $dados.flg_processo_encerrado=="S"}checked{/if}/> Sim
+					</td>
+				</tr>
+				
+				
+				
+				<tr>
+					<td colspan="2" align="left">
+						<label for="nom_cliente_nome_razao">Autor</label>
+
+					</td>
+				</tr>
+				<tr>
+					<td align="left">
+						<input name="nom_cliente_nome_razao" id='nom_cliente_nome_razao' type='text' class='tags' value="{$dados.nom_cliente_nome_razao}" class="required" required>
+					</td>
+				</tr>
+		</table>		
+		<br>			
+		
+		</center>	
+		
+		<br/>
+		<table align="center">
+			<tr>
+				<td align="center" >
+					<button type="submit" name="btn_gravar" id="btn_gravar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para salvar" alt="Clique no botão para salvar">
+						<span class="ui-button-text">Salvar</span>
+					</button>
+					
+					<button type="button" name="btn_add_novo" id="btn_add_novo" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para novo cadastro" alt="Clique no botão para novo cadastro">
+						<span class="ui-button-text">Novo</span>
+					</button>
+					<button type="button" name="btn_pesquisar" id="btn_pesquisar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para pesquisar" alt="Clique no botão para pesquisar">
+						<span class="ui-button-text">Pesquisar</span>
+					</button>																						
+	     	 	</td>						
+		    </tr>
+		</table>
+		<br>
+		{/dynamic}
+	</form>
+</div>			
+		

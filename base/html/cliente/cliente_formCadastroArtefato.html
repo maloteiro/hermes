@@ -1,0 +1,174 @@
+{literal}
+<!--script type="text/javascript" src="libs/js/jquery/forms/jquery.form.js" charset="iso-8859-1"></script-->
+<script type="text/javascript" src="libs/js/ajax/cliente/cliente.js" charset="iso-8859-1"></script>
+<!--script type="text/javascript" src="libs/js/ajax/cliente/upload.js" charset="iso-8859-1"></script-->
+
+
+<script type="text/javascript">			
+    $(document).ready(function() {
+    	CKEDITOR.instances.dsc_artefato_descricao.updateElement();
+        $("#formulario").validate();
+    });    
+</script>
+{/literal}
+
+
+<script type="text/javascript" src="./bibliotecas/ckeditor/ckeditor.js"></script>
+
+<table id="table_message" width="100%" class="login_box"  style="display:none;">	
+	<tr>
+		<td id="messageBoxAtribuicao">
+			
+		</td>
+	</tr>		
+</table>
+<br />
+<div id="message-red" {if !$smarty.request.msg}style="display:none;"{/if}>
+	<table border="0" width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="red-left">				 
+				<a href="#">{$smarty.request.msg}</a>
+			</td>
+			<td class="red-right">
+				<a class="close-red">
+					<img src="./imgs/table/icon_close_red.gif"   alt="" />
+				</a>
+			</td>	
+		</tr>
+	</table>
+</div>
+<div class="box_cabecalho">
+	Artefatos
+</div>
+
+<div class="box">
+	{dynamic}			
+	<form id="formulario" name="formulario" action="?" method="POST" enctype="multipart/form-data">
+		<input type="hidden" name="d" id="d" value="{$smarty.post.d}" /> 
+		<input type="hidden" name="a" id="a" value="{$smarty.post.a}" />
+		<input type="hidden" name="f" id="f" value="salvarArtefato" />
+		<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />		
+		<input type="hidden" name="update" id="update" value="{$update}" />
+		<input type="hidden" name="seq_cliente" id="seq_cliente" value="{$cliente.seq_cliente}" />
+        <input type="hidden" name="seq_artefato" id="seq_artefato" value="{$dados.seq_artefato}" />
+                <br />
+                <fieldset style="*width: 99%">
+	        <legend>
+                    <strong>Informações do cliente</strong>
+	        </legend>
+                    <table>
+                        <tr>
+                            <td align="right" width="145px">
+                                <strong>CPF / CPNJ: </strong>
+                            </td>
+                            <td>
+	                	{$cliente.dsc_cliente_cpf_cnpj}
+                            </td>
+                        </tr>
+	        	<tr>
+                            <td align="right" width="145px">
+                                <strong>Nome / Razão Social:</strong>
+                            </td>
+                            <td>
+	                	{$cliente.nom_cliente_nome_razao}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right" width="145px">
+                                <strong>E-mail: </strong>
+                            </td>
+                            <td>
+	                	{$cliente.dsc_cliente_email}
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <br />
+		<center>
+                <fieldset style="*width: 99%">
+	        <legend>
+                    <strong>Artefatos</strong>
+	        </legend>    
+		<table  border='0'>
+				<tr >
+					<td colspan="2" align="left">
+						<label>Selecione o arquivo:</label>
+					</td>
+		 		</tr>								
+				
+				<tr class="required">
+					<td>
+						<input type="file" name="dsc_artefato_nome" id="dsc_artefato_nome" size="45" />
+			            <!--br /><br />
+			            <progress value="0" max="100"></progress><span id="porcentagem">0%</span>
+			            <br /-->
+					</td>
+				</tr>
+				
+				<tr >
+					<td colspan="2" align="left">
+						<label for="dsc_artefato_descricao">Descrição</label>
+					</td>
+		 		</tr>
+				<tr class="required">
+					<td>
+						<textarea id ="dsc_artefato_descricao" name="dsc_artefato_descricao">{$dados.dsc_artefato_descricao}</textarea>
+							<script type="text/javascript">
+                                CKEDITOR.replace('dsc_artefato_descricao', {
+                                    uiColor: '#DEDBDE',
+                                    toolbar: [['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'], ['Undo', 'Redo', '-', 'Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'], ['Bold', 'Italic', 'Underline', 'Strike', '-', 'NumberedList', 'BulletedList', '-', 'Link'], ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']],
+                                    toolbarStartupExpanded: true,
+                                    height: 120,
+                                    width: 720,
+                                    resize_dir: 'vertical',
+                                    resize_maxHeight: 450,
+                                    resize_minHeight: 200,
+                                    resize_maxWidth: 450,
+                                    resize_minWidth: 450,
+                                    enterMode: CKEDITOR.ENTER_BR,
+            						shiftEnterMode: CKEDITOR.ENTER_BR
+                                });
+                            </script>
+					</td>
+				</tr>
+								
+				
+				<tr>
+					<td colspan="2" align="left">
+						<label for="flg_artefato_ativo">Ativo</label>
+					</td>
+		 		</tr>
+				<tr>
+					<td colspan="2" align="left">
+						<input type="checkbox" name="flg_artefato_ativo" id="flg_artefato_ativo" value="S" {if $dados.flg_artefato_ativo=="S"}checked{/if}/> Sim
+					</td>
+				</tr>
+		</table>
+                </fieldset>    
+		<br>			
+		
+		</center>	
+		
+		<br/>
+		<table align="center">
+                    <tr>
+                        <td align="center" >
+                            <button type="submit" name="btnEnviar" id="btn_gravar" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão salvar" alt="Clique no botão salvar">
+                                <span class="ui-button-text">Salvar</span>
+                            </button>
+					
+                            <button type="button" name="btn_add_novo_artefato" id="btn_add_novo_artefato" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para novo" alt="Clique no botão para novo">
+                                <span class="ui-button-text">Novo</span>
+                            </button>
+                            <button type="button" name="btn_voltar_artefato" id="btn_voltar_artefato" role="button" class="botoes ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="Clique no botão para voltar" alt="Clique no botão para voltar">
+                                <span class="ui-button-text">Voltar</span>
+                            </button>																		
+                        </td>						
+		    </tr>
+		</table>
+		<br />
+                
+                
+	</form>
+	{/dynamic}
+</div>
